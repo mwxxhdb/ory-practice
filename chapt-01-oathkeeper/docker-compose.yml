@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  httpbin:
+    image: kennethreitz/httpbin
+
+  oathkeeper:
+    image: oryd/oathkeeper:v0.40.2
+    ports:
+      - 4455:4455
+      - 4456:4456
+    command:
+      - --config
+      - /etc/ory/oathkeeper/config.yaml
+      - serve
+    volumes:
+      - ./config.yaml:/etc/ory/oathkeeper/config.yaml
+      - ./rules.yaml:/etc/ory/oathkeeper/rules.yaml
+      - ./jwks.json:/etc/ory/oathkeeper/jwks.json
